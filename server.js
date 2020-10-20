@@ -80,6 +80,7 @@ express()
       for (let i = 0; i <= splitted.length; i++) {
         if (commonGreetings.includes(splitted[i])) {
           isInGreeting.push(splitted[i]);
+          break;
         }
       }
 
@@ -87,8 +88,10 @@ express()
       for (let i = 0; i <= splitted.length; i++) {
         if (commonGoodbyes.includes(splitted[i])) {
           isInGoodbyes.push(splitted[i]);
+          break;
         }
       }
+      console.log(isInGreeting);
  
       if (isInGreeting.length >= 1) {
         botMsg = "Bzzt Hello!";
