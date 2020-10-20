@@ -58,28 +58,48 @@ express()
       const commonGreetings = [
         "hi", 
         "hello", 
-        "howdy", 
-        "what's up", 
+        "howdy",  
         "sup", 
-        "good morning", 
-        "good evening", 
-        "good afternoon"
       ];
       const commonGoodbyes = [
         "bye", 
-        "see ya",  
-        "see you", 
-        "good night"
+        "goodbye"
       ];
+      const jokes = [
+        "Why do we tell actors to “break a leg?” Because every play has a cast.",
+        "Helvetica and Times New Roman walk into a bar... “Get out of here!” shouts the bartender. “We don’t serve your type.”",
+        "Why does Waldo wear stripes? He doesn’t want to be spotted.",
+        "Did you hear about the claustrophobic astronaut? He just needed a little space.",
+        "How do you drown a hipster? Throw him in the mainstream."
+      ]
       let botMsg = "";
-      const isInCommonGreeting = commonGreetings.filter((greeting) => 
-      userMessage.toLowerCase().match(greeting.toLowerCase()));
-      const isInCommonGoodbyes = commonGoodbyes.filter((greeting) => 
-      userMessage.toLowerCase().match(greeting.toLowerCase()));
-      if (isInCommonGreeting.length >= 1) {
+      
+      const splitted = userMessage.toLowerCase().split(/[^\w]/);
+
+      const isInGreeting = [];
+      for (let i = 0; i <= splitted.length; i++) {
+        if (commonGreetings.includes(splitted[i])) {
+          isInGreeting.push(splitted[i]);
+        }
+      }
+
+      const isInGoodbyes = [];
+      for (let i = 0; i <= splitted.length; i++) {
+        if (commonGoodbyes.includes(splitted[i])) {
+          isInGoodbyes.push(splitted[i]);
+        }
+      }
+ 
+      if (isInGreeting.length >= 1) {
         botMsg = "Bzzt Hello!";
-      } else if (isInCommonGoodbyes.length >= 1) {
-        botMsg = `Bzzt Goodbye!`;
+      } else if (isInGoodbyes.length >= 1) {
+        botMsg = "Bzzt Goodbye!";
+      } else if (userMessage === "something funny") {
+        botMsg = "Bzzt Would you like to hear a joke?";
+      } else if (userMessage.toLowerCase() === "yes") {
+        botMsg = jokes[Math.floor(Math.random() * jokes.length)]; 
+      } else if (userMessage.toLowerCase() === "no") {
+        botMsg = "Bzzt Okay, no jokes!";
       } else {
         botMsg = `Bzzt ${userMessage}`;
       }
